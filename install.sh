@@ -168,7 +168,7 @@ done
 for _mp in $(bsort ${_fsent[*]}); do
 	_pp=${_mp##*!}
 	_mp=${_mp%!*}
-	echo -n "$_pp $_mp ffs rw"
+	echo -n "$_pp $_mp ffs rw,softdep,noatime"
 
 	# Only '/' is neither nodev nor nosuid. i.e. it can obviously
 	# *always* contain devices or setuid programs.
