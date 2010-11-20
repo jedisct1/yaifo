@@ -5,7 +5,7 @@ SRCDIRS distrib/special
 SRCDIRS bin sbin usr.bin usr.sbin
 SRCDIRS distrib/special/ssh
 SRCDIRS gnu/usr.bin
-LIBS -lutil -lotermcap -ll -lm -ldes -lcrypto -lz
+LIBS -lutil -lotermcap -ll -lm -lcrypto -lz
 
 # copy the crunched binary, link to it, and kill it
 COPY	${OBJDIR}/instbin			instbin
