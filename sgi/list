@@ -1,0 +1,14 @@
+#	$OpenBSD: list,v 1.15 2008/06/27 05:29:54 todd Exp $
+
+# we need the contents of /usr/mdec
+LINK	instbin					sbin/kbd
+COPY	${DESTDIR}/usr/mdec/boot32		usr/mdec/boot32
+SYMLINK	/usr/mdec/boot32			usr/mdec/boot-IP32
+COPY	${DESTDIR}/usr/mdec/boot64		usr/mdec/boot64
+SYMLINK	/usr/mdec/boot64			usr/mdec/boot-IP27
+SYMLINK	/usr/mdec/boot64			usr/mdec/boot-IP30
+COPY	${DESTDIR}/usr/mdec/sgivol		usr/mdec/sgivol
+
+# and the architecture dependent installation tool
+SCRIPT  ${SRCDIR}/distrib/sgi/ramdisk/install.md	install.md
+TERMCAP	vt100,vt220,dumb			usr/share/misc/termcap

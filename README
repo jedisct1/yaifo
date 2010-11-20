@@ -1,0 +1,111 @@
+$Id: README,v 1.10 2010/06/01 04:14:24 merdely Exp $
+YaifO - Yet another installer for OpenBSD
+
+Copyright (c) 2007-2010 Michael Erdely <mike@erdelynet.com>
+Copyright (c) 2005 Waldemar Brodkorb <wbx@openbsd-geek.de>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+=========================================================================
+
+There are some situations where a modified installer for OpenBSD is
+useful. For example if you want to remotely install without any 
+access to a keyboard or serial terminal. Or you would like to do
+a RAID installation, which is not supported by default.
+Another example is a fully automatic installations.
+
+At the moment only remote install via Secure Shell is implemented.
+
+There is no binary installer available, you should always compile
+it on your own.
+
+Building:
+==========
+As first step you need to modify the configuration file "config".
+See the comments in the file.
+Then create or copy a RSA2 public key into authorized_keys in this
+directory. Some of my machines are really slow so I like to create
+only RSA2 host keys for installation. (ssh-keygen -t rsa)
+You may also copy the /etc/ssh/ssh_host* files to this directory
+if you are upgrading an existing installation.
+
+To build and compile the installer you should have the OpenBSD source tree
+in /usr/src and then:
+  1. Set the SUDO variable, if necessary (export SUDO=/usr/bin/sudo) if you
+     are building yaifo as a non-root user.
+  2. Copy /etc/ssh/ssh_host*_key* files:
+     (sudo cp /etc/ssh/ssh_host*_key* . ; sudo chown `id -un` ssh_host*_key*).
+  3. Copy your authorized_keys file (cp ~/.ssh/authorized_keys .).
+  4. Edit the config file for your desired network settings.
+  5. If serial console redirection is necessary, edit the boot.conf file.
+  6. make cleanall (only necessary if yaifo was previously built)
+  7. make obj
+  8. make
+
+Installation with yaifo.fs:
+===========================
+
+Use dd to put the yaifo.fs image on the hard disk. 
+Overwriting the root partition of a running OpenBSD system do not work
+without single usermode and read-only mounted root partition.
+For such installations/upgrades use yaifo.rd with the existing boot
+loader.
+
+Example for an OpenBSD system wth a SCSI disk:
+# dd if=yaifo.fs of=/dev/rsd0c
+# sync
+# reboot
+
+Example for a Linux rescue system and an IDE disk:
+# wget http://www.openbsd.de/~wbx/yaifo.fs -O - | dd of=/dev/hda
+# sync
+# reboot
+
+Or OpenBSD via ftp:
+# ftp -o - 192.168.1.2:/yaifo.fs | dd of=/dev/rwd0c
+# sync
+# reboot
+
+Reboot and connect via ssh root@ip-address and install as normal.
+
+Installation with yaifo.rd:
+===========================
+You can use yaifo.rd to boot from an installed system or via network. 
+
+Notes on OpenBSD/macppc:
+========================
+There is no yaifo.fs for macppc.
+To use the yaifo.rd from within OS X, copy yaifo.rd and ofwboot to the root
+directory in OS X.  Reboot and get into Openfirmware (Cmd,Option,O,F).
+Type: boot hd:,ofwboot /yaifo.rd
+
+Notes on OpenBSD/sparc:
+=======================
+The standard bootloader does not allow RAMDISK's bigger than 3.8 MB, so
+you have to use bootloaders compiled with RELOC=0x480000 to boot yaifo images.
+For OpenBSD/sparc you need yaifo.net instead of boot.net in your tftpboot
+directory. 
+
+Notes on OpenBSD/landisk:
+=========================
+This is a work in progress and is considered broken at this time.
+

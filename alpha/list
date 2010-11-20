@@ -1,0 +1,4 @@
+LINK	instbin					sbin/kbd
+SPECIAL	cd dev; sh MAKEDEV bpf0
+SCRIPT  ${SRCDIR}/distrib/alpha/common/install.md          install.md
+TERMCAP vt100,vt220,dumb                        usr/share/misc/termcap

@@ -1,0 +1,20 @@
+SRCDIRS sys/arch/amd64/stand
+
+LINK	instbin                                 sbin/fdisk
+LINK	instbin					sbin/kbd
+LINK	instbin					sbin/mount_msdos
+LINK	instbin					sbin/mount_ext2fs
+LINK	instbin					sbin/ccdconfig
+LINK	instbin					sbin/apm sbin/zzz
+LINK	instbin					sbin/apmd
+LINK	instbin					usr/mdec/installboot
+
+# we need the contents of /usr/mdec
+COPY	/usr/mdec/biosboot			usr/mdec/biosboot
+COPY	/usr/mdec/mbr				usr/mdec/mbr
+COPY	/usr/mdec/boot				usr/mdec/boot
+
+# and the architecture dependent installation tool 
+SCRIPT  ${SRCDIR}/distrib/amd64/common/install.md          install.md
+
+TERMCAP vt100,vt220,dumb			usr/share/misc/termcap

@@ -1,0 +1,23 @@
+# /dev/rsvnd0c:
+type: unknown
+disk: yaifo
+label: 
+flags:
+bytes/sector: 512
+sectors/track: 4
+tracks/cylinder: 2
+sectors/cylinder: 8
+cylinders: 768
+total sectors: 8192
+rpm: 300
+interleave: 1
+trackskew: 0
+cylinderskew: 0
+headswitch: 0		# microseconds
+track-to-track seek: 0	# microseconds
+drivedata: 0 
+
+3 partitions:
+#             size        offset  fstype [fsize bsize  cpg]
+  a:          8192             0  4.2BSD   1024  8192    0 # Cyl     0 -   767 
+  c:          8192             0  unused      0     0      # Cyl     0 -   767 

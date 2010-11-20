@@ -1,0 +1,106 @@
+#	$OpenBSD: list,v 1.46 2010/03/31 17:51:42 deraadt Exp $
+#	$NetBSD: list,v 1.4.4.1 1996/06/20 20:30:26 pk Exp $
+
+SRCDIRS distrib/special
+SRCDIRS bin sbin usr.bin usr.sbin
+SRCDIRS distrib/special/ssh
+SRCDIRS gnu/usr.bin
+LIBS -lutil -lotermcap -ll -lm -ldes -lcrypto -lz
+
+# copy the crunched binary, link to it, and kill it
+COPY	${OBJDIR}/instbin			instbin
+LINK	instbin					bin/arch
+LINK	instbin					bin/cat
+LINK	instbin					bin/date
+LINK	instbin					bin/chmod bin/chgrp sbin/chown
+LINK	instbin					bin/cp
+LINK	instbin					bin/dd
+LINK	instbin					bin/df
+LINK	instbin					bin/ed
+LINK	instbin					bin/expr
+LINK	instbin					bin/hostname
+LINK	instbin					bin/ksh bin/sh
+ARGVLINK ksh					-sh
+LINK	instbin					bin/ln
+LINK	instbin					bin/ls
+LINK	instbin					bin/mkdir
+LINK	instbin					bin/mt bin/eject
+LINK	instbin					bin/mv
+LINK	instbin					bin/pax bin/tar bin/cpio
+LINK	instbin					bin/rm
+LINK	instbin					bin/sha256
+LINK	instbin					bin/sleep
+LINK	instbin					bin/stty
+LINK	instbin					bin/sync
+LINK	instbin					sbin/dmesg
+LINK	instbin					sbin/fsck
+LINK	instbin					sbin/fsck_ffs
+LINK	instbin					sbin/ifconfig
+LINK	instbin					sbin/init
+LINK	instbin					sbin/mknod
+LINK	instbin					sbin/mount
+LINK	instbin					sbin/mount_cd9660
+LINK	instbin					sbin/mount_udf
+LINK	instbin					sbin/mount_ffs
+LINK	instbin					sbin/mount_nfs
+LINK	instbin					sbin/newfs sbin/mount_mfs
+LINK	instbin					sbin/ping
+LINK	instbin					sbin/ping6
+LINK	instbin					sbin/reboot sbin/halt
+LINK	instbin					sbin/route
+LINK	instbin					sbin/rtsol
+LINK	instbin					sbin/umount
+LINK	instbin					usr/bin/ftp
+LINK	instbin					usr/bin/gzip usr/bin/gunzip usr/bin/gzcat
+LINK	instbin					usr/bin/sed
+LINK	instbin					sbin/sysctl
+ARGVLINK ksh					-ksh
+LINK	instbin					sbin/dhclient
+LINK	instbin					sbin/disklabel
+LINK	instbin					sbin/restore
+LINK	instbin					usr/bin/grep usr/bin/egrep usr/bin/fgrep
+LINK	instbin					usr/bin/less usr/bin/more
+LINK	instbin					usr/sbin/sshd
+
+# various files that we need in /etc for the install
+COPY	${SRCDIR}/etc/group			etc/group
+COPY	${SRCDIR}/distrib/miniroot/protocols	etc/protocols
+COPY	${SRCDIR}/distrib/miniroot/services	etc/services
+
+# copy the MAKEDEV script and make some devices
+SCRIPT	${SRCDIR}/etc/etc.${ARCH}/MAKEDEV	dev/MAKEDEV
+SPECIAL	cd dev; sh MAKEDEV ramdisk pty > /dev/null 2>&1
+
+SPECIAL	awk -f ${SRCDIR}/etc/mklogin.conf `test -f ${SRCDIR}/etc/etc.${ARCH}/login.conf.overrides && echo ${SRCDIR}/etc/etc.${ARCH}/login.conf.overrides` < ${SRCDIR}/etc/login.conf.in > ${OBJDIR}/login.conf
+SCRIPT	${SRCDIR}/etc/etc.${ARCH}/disktab	etc/disktab.shadow
+COPY	${OBJDIR}/login.conf			etc/login.conf
+SYMLINK	/tmp/disktab.shadow			etc/disktab
+SYMLINK	/tmp/fstab.shadow			etc/fstab
+SYMLINK	/tmp/resolv.conf.shadow			etc/resolv.conf
+SYMLINK	/tmp/hosts				etc/hosts
+
+# and the installation scripts
+SCRIPT	${CURDIR}/dot.profile			.profile
+SCRIPT	${SRCDIR}/distrib/miniroot/upgrade.sh	upgrade
+SCRIPT	${CURDIR}/install.sh			install
+SCRIPT	${CURDIR}/install.sub			install.sub
+SPECIAL	chmod 755 install upgrade
+SCRIPT	${CURDIR}/net.sh			net
+SCRIPT	${CURDIR}/config			config
+SCRIPT ${SRCDIR}/sbin/dhclient/dhclient-script sbin/dhclient-script
+SPECIAL	chmod 755 net sbin/dhclient-script
+SPECIAL	mkdir -p etc/ssh
+COPY	${CURDIR}/authorized_keys		etc/ssh/authorized_keys
+COPY	${CURDIR}/ssh_host_rsa_key		etc/ssh/ssh_host_rsa_key
+COPY	${CURDIR}/ssh_host_dsa_key		etc/ssh/ssh_host_dsa_key
+COPY	${CURDIR}/ssh_host_key			etc/ssh/ssh_host_key
+COPY	${CURDIR}/ssh_host_rsa_key.pub		etc/ssh/ssh_host_rsa_key.pub
+COPY	${CURDIR}/ssh_host_dsa_key.pub		etc/ssh/ssh_host_dsa_key.pub
+COPY	${CURDIR}/ssh_host_key.pub		etc/ssh/ssh_host_key.pub
+COPY	${CURDIR}/sshd_config_small		etc/ssh/sshd_config
+COPY	${CURDIR}/motd				etc/motd
+
+SPECIAL	echo "/bin/ksh" > etc/shells
+SPECIAL	sed 's!^root.*!root:x:0:0:daemon:0:0:Charlie \&,,,:/root:/bin/ksh!' <${SRCDIR}/etc/master.passwd >etc/master.passwd
+SPECIAL	/usr/sbin/pwd_mkdb -d etc etc/master.passwd
+SPECIAL	mkdir root && echo '. /.profile' > root/.profile && chmod 700 root

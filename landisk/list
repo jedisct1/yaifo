@@ -1,0 +1,40 @@
+#	$OpenBSD: list,v 1.8 2007/02/14 23:38:20 deraadt Exp $
+
+LINK	instbin					sbin/mount_ext2fs
+LINK	instbin					sbin/mount_msdos
+LINK	instbin					sbin/newfs sbin/mount_mfs
+LINK	instbin					sbin/newfs_msdos
+
+# firmwares that might need loading
+COPY	${DESTDIR}/etc/firmware/kue		etc/firmware/kue
+COPY	${DESTDIR}/etc/firmware/rum-rt2573	etc/firmware/rum-rt2573
+COPY	${DESTDIR}/etc/firmware/atu-at76c503-i3863-ext etc/firmware/atu-at76c503-i3863-ext
+COPY	${DESTDIR}/etc/firmware/atu-at76c503-i3863-int etc/firmware/atu-at76c503-i3863-int
+COPY	${DESTDIR}/etc/firmware/atu-at76c503-rfmd-acc-ext etc/firmware/atu-at76c503-rfmd-acc-ext
+COPY	${DESTDIR}/etc/firmware/atu-at76c503-rfmd-acc-int etc/firmware/atu-at76c503-rfmd-acc-int
+COPY	${DESTDIR}/etc/firmware/atu-at76c505-rfmd-ext etc/firmware/atu-at76c505-rfmd-ext
+COPY	${DESTDIR}/etc/firmware/atu-at76c505-rfmd-int etc/firmware/atu-at76c505-rfmd-int
+COPY	${DESTDIR}/etc/firmware/atu-intersil-ext etc/firmware/atu-intersil-ext
+COPY	${DESTDIR}/etc/firmware/atu-intersil-int etc/firmware/atu-intersil-int
+COPY	${DESTDIR}/etc/firmware/atu-license etc/firmware/atu-license
+COPY	${DESTDIR}/etc/firmware/atu-rfmd-ext etc/firmware/atu-rfmd-ext
+COPY	${DESTDIR}/etc/firmware/atu-rfmd-int etc/firmware/atu-rfmd-int
+COPY	${DESTDIR}/etc/firmware/atu-rfmd2958-ext etc/firmware/atu-rfmd2958-ext
+COPY	${DESTDIR}/etc/firmware/atu-rfmd2958-int etc/firmware/atu-rfmd2958-int
+COPY	${DESTDIR}/etc/firmware/atu-rfmd2958smc-ext etc/firmware/atu-rfmd2958smc-ext
+COPY	${DESTDIR}/etc/firmware/atu-rfmd2958smc-int etc/firmware/atu-rfmd2958smc-int
+
+# copy the MAKEDEV script and make some devices
+SCRIPT	${DESTDIR}/dev/MAKEDEV			dev/MAKEDEV
+SPECIAL	cd dev; sh MAKEDEV ramdisk
+
+# we need at least this one file from mdec
+COPY	/usr/mdec/mbr				usr/mdec/mbr
+COPY	/usr/mdec/xxboot			usr/mdec/xxboot
+LINK	usr/mdec/xxboot				usr/mdec/wdboot
+LINK	usr/mdec/xxboot				usr/mdec/sdboot
+
+# and the architecture dependent installation tool
+SCRIPT  ${SRCDIR}/distrib/${ARCH}/ramdisk/install.md     install.md
+
+TERMCAP vt100,vt220,dumb                        usr/share/misc/termcap

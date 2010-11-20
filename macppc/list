@@ -1,0 +1,28 @@
+# $Id: list,v 1.3 2009/04/21 03:16:08 merdely Exp $
+
+LINK	instbin					bin/expr
+LINK	instbin					bin/sync
+LINK	instbin					sbin/fdisk
+LINK	instbin					sbin/kbd
+LINK	instbin					sbin/mount_msdos
+LINK	instbin					sbin/newfs_msdos
+LINK	instbin					sbin/pdisk
+LINK	instbin					sbin/mount_ext2fs
+LINK	instbin					sbin/ccdconfig
+LINK	instbin					sbin/apm sbin/zzz
+LINK	instbin					sbin/apmd
+
+# we need the contents of /usr/mdec
+COPY	/usr/mdec/ofwboot			usr/mdec/ofwboot
+COPY	/usr/mdec/mbr				usr/mdec/mbr
+COPY	/usr/mdec/msdos1mb.gz			usr/mdec/msdos1mb.gz
+
+# firmwares that might need loading
+#COPY	/etc/firmware/tigon1			etc/firmware/tigon1
+#COPY	/etc/firmware/tigon2			etc/firmware/tigon2
+COPY	/etc/firmware/kue			etc/firmware/kue
+
+# and the architecture dependent installation tool
+SCRIPT	${SRCDIR}/distrib/macppc/ramdisk/install.md	install.md
+
+TERMCAP	vt100,vt220,dumb			usr/share/misc/termcap

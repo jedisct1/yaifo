@@ -1,0 +1,46 @@
+# $Id: CHANGES,v 1.7 2010/06/01 04:14:24 merdely Exp $
+
+May 31, 2010
+* Update for OpenBSD 4.7
+* Tested with i386, amd64, macppc, and alpha
+* Call 4.7-beta
+
+May 30, 2009
+* Fix bug where hard coded IP information is not written
+  to the newly installed system.  From Seth Fulton.
+
+April 20, 2009
+* Add landisk.  It doesn't work yet.
+* Move kbd to MD list files.  Landisk doesn't have kbd.
+
+March 13, 2009
+* Make sgi work
+* Fix sparc64 ramdisk size issue
+* Copy a version of sshd_config without comments or blank lines to the
+  ramdisk (sshd_config_small)
+* Add sshd_config_small to .cvsignore
+* Default to "no" for zeroing out the first bytes of the disk and
+  explain why.
+* Add an motd
+
+March 9, 2009
+* Add .cvsignore file
+* Add "install" target.  Requires `env REALLY=YES` to work.
+* Add a SNAPSHOTS config file setting.  If "yes", .../snapshots/$ARCH
+  will be used for the FTP path instead of the version number.
+
+March 8, 2009
+* Fix {check,do}-updates when obj exists by using ${.CURDIR}
+* Update for 4.5
+
+February 20, 2009
+* Updated to -current
+
+February 10, 2009
+* Updated to -current including crank to 4.5 (beta)
+* Add check-updates and do-updates to check for needed updates to files
+  in YAIFO that correspond to OpenBSD files.  do-updates creates diffs
+  between the YAIFO version's OpenBSD RCS ID and the OpenBSD version's
+  RCS ID.  If the diff does not apply cleanly, it will stop and create a
+  .rej file for manual updates.
+* Add CHANGES log

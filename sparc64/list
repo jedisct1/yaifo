@@ -1,0 +1,5 @@
+# and the architecture dependent installation tool
+LINK	instbin				sbin/kbd
+SCRIPT  ${SRCDIR}/distrib/sparc64/common/install.md          install.md
+
+TERMCAP dumb,sun                        usr/share/misc/termcap

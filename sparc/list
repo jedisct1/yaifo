@@ -1,0 +1,15 @@
+SRCDIRS	sys/arch/sparc/stand
+
+LINK	instbin				sbin/kbd
+LINK	instbin				usr/sbin/installboot
+
+SYMLINK	/tmp	var/tmp
+
+# we need the contents of /usr/mdec (but not boot or binstall)
+COPYDIR	/usr/mdec		usr/mdec
+SPECIAL	rm -f usr/mdec/binstall		usr/mdec/installboot
+
+# and the architecture dependent installation tool
+SCRIPT  ${SRCDIR}/distrib/sparc/install.md          install.md
+
+TERMCAP dumb,sun			usr/share/misc/termcap
