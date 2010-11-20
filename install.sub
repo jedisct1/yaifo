@@ -111,7 +111,7 @@ scan_dmesg() {
 scan_disknames() {
 	local _n _oifs=$IFS
 	IFS=","
-	bsort $(for _n in $(sysctl -n hw.disknames); do echo "$_n "; done | sed -ne "$1")
+	bsort $(for _n in $(sysctl -n hw.disknames); do echo "${_n%%:*} "; done | sed -ne "$1")
 	IFS=$_oifs
 }
 
