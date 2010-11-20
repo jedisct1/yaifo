@@ -1868,7 +1868,6 @@ questions() {
 	fi
 
 	def=no
-	[[ -n $DISPLAY ]] && def=yes
 	if [[ -n $MDXAPERTURE ]]; then
 		ask_yn "Do you expect to run the X Window System?" $def
 		x11=$resp
