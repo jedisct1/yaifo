@@ -1,5 +1,5 @@
 #!/bin/ksh
-#	$OpenBSD: install.sh,v 1.208 2010/08/04 07:07:41 halex Exp $
+#	$OpenBSD: install.sh,v 1.210 2010/10/30 22:48:03 deraadt Exp $
 #	$NetBSD: install.sh,v 1.5.2.8 1996/08/27 18:15:05 gwr Exp $
 #
 # Copyright (c) 1997-2009 Todd Miller, Theo de Raadt, Ken Westerback
@@ -217,9 +217,10 @@ install_sets
 # using the timezone names extracted from the base set
 if [[ -z $TZ ]]; then
 	( cd /mnt/usr/share/zoneinfo
-	ls -1dF `tar cvf /dev/null [A-Za-y]*` >/tmp/tzlist )
+	ls -1dF `tar cvf /dev/null [A-Za-y]*` >/mnt/tmp/tzlist )
 	echo
-	set_timezone /tmp/tzlist
+	set_timezone /mnt/tmp/tzlist
+	rm -f /mnt/tmp/tzlist
 fi
 
 # If we got a timestamp from the ftplist server, and that time diffs by more
@@ -305,15 +306,16 @@ apply
 if [[ -n $user ]]; then
 	_encr="*"
 	[[ -n "$userpass" ]] && _encr=`/mnt/usr/bin/encrypt -b 8 -- "$userpass"`
-	userline="${user}:${_encr}:1000:10:staff:0:0:${username}:/home/${user}:/bin/ksh"
-	echo "$userline" >> /mnt/etc/master.passwd
+	uline="${user}:${_encr}:1000:1000:staff:0:0:${username}:/home/${user}:/bin/ksh"
+	echo "$uline" >> /mnt/etc/master.passwd
+	echo "${user}:*:1000:" >> /mnt/etc/group
 
 	mkdir -p /mnt/home/$user
 	(cd /mnt/etc/skel; cp -pR . /mnt/home/$user)
 	( umask 077 &&
 		sed "s,^To: root\$,To: ${username} <${user}>," \
 		/mnt/var/mail/root > /mnt/var/mail/$user )
-	chown -R 1000.10 /mnt/home/$user /mnt/var/mail/$user
+	chown -R 1000:1000 /mnt/home/$user /mnt/var/mail/$user
 	echo "1,s@wheel:.:0:root\$@wheel:\*:0:root,${user}@
 w
 q" | /mnt/bin/ed /mnt/etc/group 2>/dev/null
