@@ -143,8 +143,11 @@ while :; do
 		_i=${#_fsent[*]}
 		while read _pp _mp _fstype _rest; do
 			[[ $_fstype == ffs ]] || continue
-			_OPT=
-			[[ $_mp == / ]] && _OPT=$MDROOTFSOPT
+			if [[ $_mp == / ]]; then
+				_OPT=$MDROOTFSOPT
+			else
+				_OPT='-O2'
+			fi
 			newfs -q $_OPT ${_pp##/dev/}
 			# N.B.: '!' is lexically < '/'. That is
 			#	required for correct sorting of
