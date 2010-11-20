@@ -28,6 +28,9 @@
 TYPE=remote
 
 # SNAPSHOT yes/no
+# This version mainly targets -current, so you probably
+# shouldn't change this. Better use the original version if
+# you're planning to install -release.
 SNAPSHOT=yes
 
 # specific network device, automatic detection works only with
