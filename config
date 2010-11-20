@@ -28,7 +28,7 @@
 TYPE=remote
 
 # SNAPSHOT yes/no
-SNAPSHOT=no
+SNAPSHOT=yes
 
 # specific network device, automatic detection works only with
 # machines with a single network card
@@ -45,14 +45,14 @@ NETMASK2=
 DHCP=on
 
 # DNS server's IP address, not used if DHCP=on
-DNS=192.168.2.1
+DNS=208.67.222.222
 # DNS Search list (for resolv.conf)
 SEARCH=
 
 # static TCP/IP configuration, DHCP must be off
 IP=
-NETMASK=255.255.255.255
-GATEWAY=10.255.255.1
+NETMASK=
+GATEWAY=
 
 # special TCP/IP configuration for Alturo root server
 # GATEWAY is 10.255.255.1 and NETMASK 255.255.255.255
