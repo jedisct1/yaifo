@@ -53,8 +53,8 @@ in /usr/src and then:
   1. Set the SUDO variable, if necessary (export SUDO=/usr/bin/sudo) if you
      are building yaifo as a non-root user.
   2. Copy /etc/ssh/ssh_host*_key* files:
-     (sudo cp /etc/ssh/ssh_host*_key* . ; sudo chown `id -un` ssh_host*_key*).
-  3. Copy your authorized_keys file (cp ~/.ssh/authorized_keys .).
+     (sudo cp /etc/ssh/ssh_host*_key* . ; sudo chown `id -un` ssh_host*_key*)
+  3. Copy your authorized_keys file (cp ~/.ssh/authorized_keys .)
   4. Edit the config file for your desired network settings.
   5. If serial console redirection is necessary, edit the boot.conf file.
   6. make cleanall (only necessary if yaifo was previously built)
