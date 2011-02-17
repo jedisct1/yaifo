@@ -14,6 +14,13 @@ COPY	/usr/mdec/biosboot			usr/mdec/biosboot
 COPY	/usr/mdec/mbr				usr/mdec/mbr
 COPY	/usr/mdec/boot				usr/mdec/boot
 
+# firmwares that might need loading
+COPY	/etc/firmware/bnx-b06			etc/firmware/bnx-b06
+COPY	/etc/firmware/bnx-b09			etc/firmware/bnx-b09
+COPY	/etc/firmware/bnx-rv2p			etc/firmware/bnx-rv2p
+COPY	/etc/firmware/bnx-xi-rv2p		etc/firmware/bnx-xi-rv2p
+COPY	/etc/firmware/bnx-xi90-rv2p		etc/firmware/bnx-xi90-rv2p
+
 # and the architecture dependent installation tool 
 SCRIPT  ${SRCDIR}/distrib/i386/common/install.md          install.md
 
