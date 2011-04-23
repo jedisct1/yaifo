@@ -366,7 +366,7 @@ bnx*	at pci?				# Broadcom BCM5706/5708 GigE
 lge*	at pci?				# Level1 LXT1001 GigE
 mtd*	at pci?				# Myson MTD803
 hme*	at pci?				# Sun Happy Meal
-#bce*	at pci?				# Broadcom BCM4401
+bce*	at pci?				# Broadcom BCM4401
 vge*	at pci?				# VIA VT612x
 nfe*	at pci?				# NVIDIA nForce Ethernet
 xge*	at pci?				# Neterion Xframe-I/II 10Gb ethernet
@@ -437,6 +437,7 @@ jmphy*	at mii?				# JMicron JMP202/JMP211 PHYs
 ipgphy*	at mii?				# IC Plus IP1000A PHYs
 atphy*	at mii?				# Attansic F1 PHYs
 rdcphy*	at mii?				# RDC R6040 PHY
+mlphy*  at mii?				# Micro Linear 6692 PHY
 ukphy*	at mii?				# "unknown" PHYs
 
 pseudo-device	loop	1		# network loopback
