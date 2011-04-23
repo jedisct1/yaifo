@@ -1,4 +1,4 @@
-#	$OpenBSD: install.sub,v 1.634 2011/01/31 16:48:18 halex Exp $
+#	$OpenBSD: install.sub,v 1.638 2011/04/18 16:52:10 thib Exp $
 #	$NetBSD: install.sub,v 1.5.2.8 1996/09/02 23:25:02 pk Exp $
 #
 # Copyright (c) 1997-2009 Todd Miller, Theo de Raadt, Ken Westerback
@@ -1334,7 +1334,7 @@ install_url() {
 	# name. This means the last install from a mirror will not keep
 	# the specific directory info. But an install from a local
 	# server *will* remember the specific directory info.
-	set -- $(sed "/^$_server_ip/x;\$!d;x" $SERVERLIST)
+	set -- $(sed "/^$_server_ip/x;\$!d;x" $SERVERLIST 2>&-)
 	resp=${1#*/}
 	# If there is no directory specified, don't use the server name!
 	[[ $resp == "$1" ]] && resp=
@@ -1626,7 +1626,7 @@ install_sets() {
 #	2) have 'xx' in the option field (usually /altroot),
 #	3) have 'noauto' in the option field,
 #	4) are nfs (since name resolution may not be present),
-#	5) are on a svnd device.
+#	5) are on a vnd device.
 #
 # In addition,
 #
@@ -1641,7 +1641,7 @@ munge_fstab() {
 
 	while read _dev _mp _fstype _opt _rest; do
 		# Drop irrelevant lines and filesystems.
-		[[ $_dev == @(/dev/svnd*|\#*) || \
+		[[ $_dev == @(/dev/vnd*|\#*) || \
 			$_fstype == nfs || \
 			! -f /sbin/mount_$_fstype || \
 			$_opt == *noauto* || \
@@ -1945,11 +1945,11 @@ finish_up() {
 	)
 	echo "done."
 
-	md_installboot $ROOTDISK
-
 	populateusrlocal
 
 	[ -x /mnt/$MODE.site ] && /mnt/usr/sbin/chroot /mnt /$MODE.site
+
+	md_installboot $ROOTDISK
 
 	# Pat on the back.
 	cat <<__EOT
@@ -1986,6 +1986,7 @@ SERVERLISTALL=/tmp/serverlistall
 SERVERLISTSEC=/tmp/serverlistsec
 SERVERLIST=/tmp/serverlist
 WLANLIST=/tmp/wlanlist
+FSTABFLAG=-f
 
 # Do not limit ourselves during installs or upgrades.
 for _opt in d f l m n p s; do
