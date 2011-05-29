@@ -130,6 +130,7 @@ timer*	at mainbus0			# Timer chip
 # Virtual devices for sun4v systems.
 vcons0	at vbus?
 vrtc0	at vbus?
+vrng0	at vbus?
 vdsk*	at cbus?
 scsibus* at vdsk?
 vnet*	at cbus?

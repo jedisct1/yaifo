@@ -93,7 +93,6 @@ ubsa*		at uhub?	# Belkin serial adapter
 ucom*		at ubsa?
 #ulpt*		at uhub?	# USB Printers	
 umass*		at uhub?	# USB Mass Storage devices
-atapiscsi*	at umass?
 scsibus*	at atapiscsi?
 scsibus*	at umass?
 uhidev*		at uhub?	# Human Interface Devices

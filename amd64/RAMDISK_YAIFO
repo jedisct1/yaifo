@@ -104,7 +104,6 @@ ukbd*	at uhidev?
 wskbd*	at ukbd? mux 1
 umass*	at uhub?		# USB Mass Storage devices
 scsibus* at umass?
-atapiscsi* at umass?
 #ums*	at uhidev?
 #wsmouse* at ums? mux 0
 aue*	at uhub?		# ADMtek AN986 Pegasus Ethernet
@@ -292,7 +291,7 @@ bce*	at pci?			# Broadcom BCM4401
 vic*	at pci?			# VMware VMXnet virtual interface
 et*	at pci?			# Agere/LSI ET1310
 age*	at pci?			# Attansic L1 Ethernet
-alc*	at pci?			# Attansic L1C/L2C Ethernet
+alc*	at pci?			# Attansic L1C/L1D/L2C Ethernet
 ale*	at pci?			# Attansic L1E Ethernet
 lii*	at pci?			# Attansic L2 Ethernet
 jme*	at pci?			# JMicron JMC250/JMC260 Ethernet

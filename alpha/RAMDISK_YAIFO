@@ -79,7 +79,6 @@ uhid*	at uhidev?			# USB Generic HID devices
 # USB Mass Storage devices
 umass*	at uhub?
 scsibus* at umass?
-atapiscsi* at umass?
 
 # USB Modems
 #umodem*	at uhub?
@@ -248,6 +247,7 @@ urlphy*	at mii?				# Realtek RTL8150L internal PHY
 rgephy*	at mii?				# Realtek 8169S/8110S PHY
 ciphy*	at mii?				# Cicada CS8201 10/100/1000 copper PHY
 ipgphy*	at mii?				# IC Plus IP1000A PHYs
+mlphy*	at mii?				# Micro Linear 6692 PHY
 ukphy*	at mii?				# "unknown" PHYs
 
 # ISA/EISA bus support
