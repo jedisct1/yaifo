@@ -194,7 +194,10 @@ rd_teardown:
 	rm ${REALIMAGE}
 
 rdsetroot:	${SRCDIR}/distrib/common/elfrdsetroot.c
-	${HOSTCC} -DDEBUG -o rdsetroot ${SRCDIR}/distrib/common/elfrdsetroot.c
+	${HOSTCC} -DDEBUG -o rdsetroot \
+        ${SRCDIR}/distrib/common/elfrdsetroot.c \
+        ${SRCDIR}/distrib/common/elf32.c \
+        ${SRCDIR}/distrib/common/elf64.c
 
 unconfig:
 	-${SUDO} umount -f ${MOUNT_POINT}
