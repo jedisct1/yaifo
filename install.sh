@@ -1,5 +1,5 @@
 #!/bin/ksh
-#	$OpenBSD: install.sh,v 1.220 2011/04/17 21:02:44 krw Exp $
+#	$OpenBSD: install.sh,v 1.224 2011/08/17 03:42:14 todd Exp $
 #	$NetBSD: install.sh,v 1.5.2.8 1996/08/27 18:15:05 gwr Exp $
 #
 # Copyright (c) 1997-2009 Todd Miller, Theo de Raadt, Ken Westerback
@@ -333,6 +333,13 @@ w
 q" | /mnt/bin/ed /mnt/etc/master.passwd 2>/dev/null
 fi
 /mnt/usr/sbin/pwd_mkdb -p -d /mnt/etc /mnt/etc/master.passwd 2>/dev/null
+
+if grep -qs '^rtsol' /mnt/etc/hostname.*; then
+	sed -e "/^#\(net\.inet6\.ip6\.accept_rtadv\)/s//\1/" \
+	    -e "/^#\(net\.inet6\.icmp6\.rediraccept\)/s//\1/" \
+		/mnt/etc/sysctl.conf >/tmp/sysctl.conf
+	cp /tmp/sysctl.conf /mnt/etc/sysctl.conf
+fi
 
 echo -n "Writing network configuration..."
 write_netconfig
