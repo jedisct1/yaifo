@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.34 2010/11/08 02:18:38 merdely Exp $
+# $Id: Makefile,v 1.35 2011/05/03 20:12:57 merdely Exp $
 
 .if !defined(SRCDIR)
 SRCDIR=/usr/src
@@ -105,6 +105,7 @@ ${.CURDIR}/authorized_keys:
 	@echo "===>  Error: ${.CURDIR}/authorized_keys does not exist."
 	@echo "===>  Create or copy an authorized_keys file."
 	@echo "===>  Refer to ssh-keygen(1) if necessary."
+	@echo "===>  'make keys' will copy ~/.ssh/authorized_keys and this hosts host keys."
 	@exit 1
 .endif
 
