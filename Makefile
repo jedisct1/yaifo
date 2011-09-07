@@ -141,6 +141,7 @@ ${FS}:	bsd.gz
 .if ${MACHINE} != "macppc" && ${MACHINE} != "sgi" && ${MACHINE} != "landisk"
 	dd if=/dev/zero of=${REALIMAGE} count=${IMAGESIZE}
 	${SUDO} vnconfig -v -c ${VND} ${REALIMAGE}
+	${SUDO} fdisk -iy ${VND_CRDEV}
 	${SUDO} disklabel ${LABELOPTS}
 	${SUDO} newfs ${NEWFSOPTS} ${VND_RDEV}
 	${SUDO} mount ${VND_DEV} ${MOUNT_POINT}
@@ -181,6 +182,7 @@ ${IMAGE}: ${CBIN} rd_setup do_files rd_teardown
 rd_setup: ${CBIN}
 	dd if=/dev/zero of=${REALIMAGE} bs=512 count=${RDSIZE}
 	${SUDO} vnconfig -v -c ${VND} ${REALIMAGE}
+	${SUDO} fdisk -iy ${VND_CRDEV}    
 	${SUDO} disklabel ${RDLABELOPTS}
 	${SUDO} newfs ${NEWFSOPTS} ${VND_RDEV}
 	${SUDO} fsck ${VND_RDEV}
