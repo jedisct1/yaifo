@@ -8,7 +8,6 @@ LINK	instbin					sbin/mount_msdos
 LINK	instbin					sbin/newfs_msdos
 LINK	instbin					sbin/pdisk
 LINK	instbin					sbin/mount_ext2fs
-LINK	instbin					sbin/ccdconfig
 LINK	instbin					sbin/apm sbin/zzz
 LINK	instbin					sbin/apmd
 
