@@ -224,6 +224,4 @@ option		BOOT_CONFIG	# boot-time kernel config
 # RAMDISK stuff
 option		MINIROOTSIZE=8192
 option		RAMDISK_HOOKS
-option		RAID_AUTOCONFIG
 pseudo-device	pty	2
-pseudo-device	raid	4

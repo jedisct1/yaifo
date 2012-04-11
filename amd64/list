@@ -13,7 +13,7 @@ COPY	/usr/mdec/biosboot			usr/mdec/biosboot
 COPY	/usr/mdec/mbr				usr/mdec/mbr
 COPY	/usr/mdec/boot				usr/mdec/boot
 
-# firmwares that might need loading
+# firmware we might need
 COPY	/etc/firmware/bnx-b06			etc/firmware/bnx-b06
 COPY	/etc/firmware/bnx-b09			etc/firmware/bnx-b09
 COPY	/etc/firmware/bnx-rv2p			etc/firmware/bnx-rv2p
