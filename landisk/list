@@ -5,7 +5,7 @@ LINK	instbin					sbin/mount_msdos
 LINK	instbin					sbin/newfs sbin/mount_mfs
 LINK	instbin					sbin/newfs_msdos
 
-# firmwares that might need loading
+# firmware we might need
 COPY	${DESTDIR}/etc/firmware/kue		etc/firmware/kue
 COPY	${DESTDIR}/etc/firmware/rum-rt2573	etc/firmware/rum-rt2573
 COPY	${DESTDIR}/etc/firmware/atu-at76c503-i3863-ext etc/firmware/atu-at76c503-i3863-ext

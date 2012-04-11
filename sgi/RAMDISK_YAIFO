@@ -204,6 +204,4 @@ pseudo-device	rd		1	# Ram disk.
 pseudo-device	bio		1	# ioctl multiplexing device
 
 option		BOOT_CONFIG	# add support for boot -c
-option		RAID_AUTOCONFIG
 pseudo-device	pty		2
-pseudo-device	raid		4

@@ -16,7 +16,7 @@ COPY	/usr/mdec/ofwboot			usr/mdec/ofwboot
 COPY	/usr/mdec/mbr				usr/mdec/mbr
 COPY	/usr/mdec/msdos1mb.gz			usr/mdec/msdos1mb.gz
 
-# firmwares that might need loading
+# firmware we might need
 #COPY	/etc/firmware/tigon1			etc/firmware/tigon1
 #COPY	/etc/firmware/tigon2			etc/firmware/tigon2
 COPY	/etc/firmware/kue			etc/firmware/kue
