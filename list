@@ -93,9 +93,11 @@ SPECIAL	mkdir -p etc/ssh
 COPY	${CURDIR}/authorized_keys		etc/ssh/authorized_keys
 COPY	${CURDIR}/ssh_host_rsa_key		etc/ssh/ssh_host_rsa_key
 COPY	${CURDIR}/ssh_host_dsa_key		etc/ssh/ssh_host_dsa_key
+COPY	${CURDIR}/ssh_host_ecdsa_key		etc/ssh/ssh_host_ecdsa_key
 COPY	${CURDIR}/ssh_host_key			etc/ssh/ssh_host_key
 COPY	${CURDIR}/ssh_host_rsa_key.pub		etc/ssh/ssh_host_rsa_key.pub
 COPY	${CURDIR}/ssh_host_dsa_key.pub		etc/ssh/ssh_host_dsa_key.pub
+COPY	${CURDIR}/ssh_host_ecdsa_key.pub	etc/ssh/ssh_host_ecdsa_key.pub
 COPY	${CURDIR}/ssh_host_key.pub		etc/ssh/ssh_host_key.pub
 COPY	${CURDIR}/sshd_config_small		etc/ssh/sshd_config
 COPY	${CURDIR}/motd				etc/motd

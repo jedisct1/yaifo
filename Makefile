@@ -237,6 +237,9 @@ do_files:
 .if !exists(${.CURDIR}/ssh_host_rsa_key)
 	ssh-keygen -q -t rsa -f ${.CURDIR}/ssh_host_rsa_key -N ''
 .endif
+.if !exists(${.CURDIR}/ssh_host_ecdsa_key)
+	ssh-keygen -q -t ecdsa -f ${.CURDIR}/ssh_host_ecdsa_key -N ''
+.endif
 .if !exists(${.CURDIR}/ssh_host_dsa_key)
 	ssh-keygen -q -t dsa -f ${.CURDIR}/ssh_host_dsa_key -N ''
 .endif
