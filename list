@@ -70,7 +70,7 @@ COPY	${SRCDIR}/distrib/miniroot/services	etc/services
 
 # copy the MAKEDEV script and make some devices
 SCRIPT	${SRCDIR}/etc/etc.${ARCH}/MAKEDEV	dev/MAKEDEV
-SPECIAL	cd dev; sh MAKEDEV ramdisk pty > /dev/null 2>&1
+SPECIAL	cd dev; sh MAKEDEV ramdisk pty ptm > /dev/null 2>&1
 
 SPECIAL	awk -f ${SRCDIR}/etc/mklogin.conf `test -f ${SRCDIR}/etc/etc.${ARCH}/login.conf.overrides && echo ${SRCDIR}/etc/etc.${ARCH}/login.conf.overrides` < ${SRCDIR}/etc/login.conf.in > ${OBJDIR}/login.conf
 SCRIPT	${SRCDIR}/etc/etc.${ARCH}/disktab	etc/disktab.shadow
