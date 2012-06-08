@@ -75,6 +75,13 @@ Example for an OpenBSD system wth a SCSI disk:
 # sync
 # reboot
 
+Example for a FreeBSD system after forcing disks to read-only and
+disabling disk-overwrite protection:
+# mount -u -o ro -f -a
+# sysctl kern.geom.debugflags=16
+# dd if=yaifo.fs of=/dev/da0 bs=512
+# reboot
+
 Example for a Linux rescue system and an IDE disk:
 # wget http://www.openbsd.de/~wbx/yaifo.fs -O - | dd of=/dev/hda
 # sync
